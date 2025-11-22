@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+
 
 const Hero = () => {
     return (
-        <div className="relative h-screen w-full overflow-hidden">
+        <div id="home" className="relative h-screen w-full overflow-hidden">
             {/* Background Image */}
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -41,12 +41,12 @@ const Hero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
                 >
-                    <Link
-                        to="/gallery"
-                        className="px-8 py-3 bg-brand-600 hover:bg-brand-500 text-white rounded-full transition-all duration-300 transform hover:scale-105 tracking-widest text-sm font-semibold uppercase"
+                    <a
+                        href="#gallery"
+                        className="px-8 py-3 bg-brand-600 hover:bg-brand-500 text-white rounded-full transition-all duration-300 transform hover:scale-105 tracking-widest text-sm font-semibold uppercase inline-block"
                     >
                         View Gallery
-                    </Link>
+                    </a>
                 </motion.div>
 
                 {/* Scroll Indicator */}

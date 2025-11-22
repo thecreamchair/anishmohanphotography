@@ -19,7 +19,7 @@
   --color-brand-300: #f1c40f;
 
   --font-sans: Inter, sans-serif;
-  --font-serif: Playfair Display, serif;
+  --font-serif: Nunito, serif;
 }
 
 @layer base {
