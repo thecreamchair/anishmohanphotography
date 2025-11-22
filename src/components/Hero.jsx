@@ -24,7 +24,7 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 tracking-tight"
                 >
-                    Nature's <span className="text-nature-300">Canvas</span>
+                    Nature's <span className="text-brand-500">Canvas</span>
                 </motion.h1>
 
                 <motion.p
@@ -43,7 +43,7 @@ const Hero = () => {
                 >
                     <Link
                         to="/gallery"
-                        className="px-8 py-3 bg-nature-600 hover:bg-nature-500 text-white rounded-full transition-all duration-300 transform hover:scale-105 tracking-widest text-sm font-semibold uppercase"
+                        className="px-8 py-3 bg-brand-600 hover:bg-brand-500 text-white rounded-full transition-all duration-300 transform hover:scale-105 tracking-widest text-sm font-semibold uppercase"
                     >
                         View Gallery
                     </Link>

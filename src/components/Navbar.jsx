@@ -38,7 +38,7 @@ const Navbar = () => {
                     <Link to="/" className="flex items-center space-x-2 group">
                         <Camera className="h-8 w-8 text-nature-100 group-hover:text-nature-300 transition-colors" />
                         <span className="text-xl font-serif font-bold text-nature-50 tracking-wider">
-                            ANISH<span className="text-nature-300">MOHAN</span>
+                            ANISH<span className="text-brand-500">MOHAN</span>
                         </span>
                     </Link>
 
@@ -48,7 +48,7 @@ const Navbar = () => {
                             <Link
                                 key={link.name}
                                 to={link.path}
-                                className={`text-sm font-medium tracking-widest hover:text-nature-300 transition-colors ${location.pathname === link.path ? 'text-nature-300' : 'text-nature-50'
+                                className={`text-sm font-medium tracking-widest hover:text-brand-500 transition-colors ${location.pathname === link.path ? 'text-brand-500' : 'text-nature-50'
                                     }`}
                             >
                                 {link.name.toUpperCase()}
@@ -60,7 +60,7 @@ const Navbar = () => {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="text-nature-50 hover:text-nature-300 transition-colors"
+                            className="text-nature-50 hover:text-brand-500 transition-colors"
                         >
                             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>
@@ -82,7 +82,7 @@ const Navbar = () => {
                                 <Link
                                     key={link.name}
                                     to={link.path}
-                                    className={`text-lg font-medium tracking-widest hover:text-nature-300 transition-colors ${location.pathname === link.path ? 'text-nature-300' : 'text-nature-50'
+                                    className={`text-lg font-medium tracking-widest hover:text-brand-500 transition-colors ${location.pathname === link.path ? 'text-brand-500' : 'text-nature-50'
                                         }`}
                                 >
                                     {link.name.toUpperCase()}
