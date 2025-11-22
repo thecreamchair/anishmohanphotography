@@ -37,8 +37,8 @@ const Navbar = () => {
                 <div className="flex justify-between items-center">
                     <Link to="/" className="flex items-center space-x-2 group">
                         <Camera className="h-8 w-8 text-nature-100 group-hover:text-nature-300 transition-colors" />
-                        <span className="text-2xl font-serif font-bold text-nature-50 tracking-wider">
-                            WILD<span className="text-nature-300">LENS</span>
+                        <span className="text-xl font-serif font-bold text-nature-50 tracking-wider">
+                            ANISH<span className="text-nature-300">MOHAN</span>
                         </span>
                     </Link>
 

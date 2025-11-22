@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-6 md:mb-0">
                         <span className="text-2xl font-serif font-bold text-nature-50 tracking-wider">
-                            WILD<span className="text-nature-300">LENS</span>
+                            ANISH<span className="text-nature-300">MOHAN</span>
                         </span>
                         <p className="mt-2 text-sm text-nature-400">Capturing the untamed beauty of nature.</p>
                     </div>
@@ -26,9 +26,8 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="mt-8 pt-8 border-t border-nature-800 text-center text-sm text-nature-500">
-                    &copy; {new Date().getFullYear()} WildLens Photography. All rights reserved.
-                </div>
-            </div>
+                    &copy; {new Date().getFullYear()} Anish Mohan Photography. All rights reserved.
+                </div>            </div>
         </footer>
     );
 };
