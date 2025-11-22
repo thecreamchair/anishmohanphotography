@@ -1,23 +1,47 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
+const heroImages = [
+    "https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80", // Kingfisher
+    "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&w=2069&q=80", // Parrot
+    "https://images.unsplash.com/photo-1470114716159-e389f8712fda?auto=format&fit=crop&w=2069&q=80", // Deer
+    "https://images.unsplash.com/photo-1552728089-57bdde30ebd1?auto=format&fit=crop&w=2069&q=80"  // Sunset lake bird
+];
 
 const Hero = () => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+        }, 5000); // Change image every 5 seconds
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
-        <div id="home" className="relative h-screen w-full overflow-hidden">
-            {/* Background Image */}
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80")', // Kingfisher
-                }}
-            >
-                <div className="absolute inset-0 bg-black/30" />
-            </div>
+        <div id="home" className="relative h-screen w-full overflow-hidden bg-nature-950">
+            {/* Background Image Slideshow */}
+            <AnimatePresence mode="popLayout">
+                <motion.div
+                    key={currentImageIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1.5 }}
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{
+                        backgroundImage: `url("${heroImages[currentImageIndex]}")`,
+                    }}
+                />
+            </AnimatePresence>
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/40 z-10" />
 
             {/* Content */}
-            <div className="relative h-full flex flex-col justify-center items-center text-center px-4">
+            <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
