@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import aboutImage from '../assets/misc_images/Anish Mohan.png';
 
 const About = () => {
     return (
@@ -12,7 +13,7 @@ const About = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <img
-                        src="src/assets/misc_images/Anish Mohan.png"
+                        src={aboutImage}
                         alt="Photographer in nature"
                         className="rounded-lg shadow-2xl"
                     />
