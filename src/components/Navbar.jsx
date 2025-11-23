@@ -31,7 +31,7 @@ const Navbar = () => {
                 <div className="flex justify-between items-center">
                     <a href="#home" className="flex items-center space-x-2 group">
                         <img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain" />
-                        <span className={`text-xl font-serif font-bold tracking-wider ${scrolled ? 'text-nature-950' : 'text-white'}`}>
+                        <span className={`text-xl font-serif font-bold tracking-wider ${scrolled ? 'text-nature-100' : 'text-white'}`}>
                             ANISH<span className="text-brand-500">MOHAN</span>
                         </span>
                     </a>
@@ -42,7 +42,7 @@ const Navbar = () => {
                             <a
                                 key={link.name}
                                 href={link.path}
-                                className={`text-sm font-medium tracking-widest hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-950' : 'text-white'}`}
+                                className={`text-sm font-medium tracking-widest hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-100' : 'text-white'}`}
                             >
                                 {link.name.toUpperCase()}
                             </a>
@@ -53,7 +53,7 @@ const Navbar = () => {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className={`hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-950' : 'text-white'}`}
+                            className={`hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-100' : 'text-white'}`}
                         >
                             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>

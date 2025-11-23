@@ -1,28 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Olive Garden Feast Theme */
-  --color-nature-950: #283618;
-  /* Black Forest - Background */
-  --color-nature-900: #34461f;
-  --color-nature-800: #415626;
-  --color-nature-700: #4e662d;
-  --color-nature-600: #606c38;
-  /* Olive Leaf */
-  --color-nature-500: #8a884b;
-  --color-nature-400: #dda15e;
-  /* Light Caramel */
-  --color-nature-300: #e6bf89;
-  --color-nature-200: #f2dcb4;
-  --color-nature-100: #f9ebd5;
-  --color-nature-50: #fefae0;
-  /* Cornsilk - Text */
+  /* Cream & Olive Theme */
+  --color-nature-950: #faf9f7;
+  /* Cream White - Background */
+  --color-nature-900: #e7e1d5;
+  /* Desert Beige - Secondary */
+  --color-nature-800: #d4c9b3;
+  --color-nature-700: #c1b191;
+  --color-nature-600: #b8c2a1;
+  /* Pale Olive - Accent */
+  --color-nature-500: #8dae92;
+  --color-nature-400: #6e7b62;
+  --color-nature-300: #4f5a3a;
+  --color-nature-200: #3e472e;
+  --color-nature-100: #4f5a3a;
+  /* Deep Olive - Action/Dark Accent */
+  --color-nature-50: #2c2b29;
+  /* Dark Umber - Text */
 
-  --color-brand-600: #a35a1f;
-  --color-brand-500: #bc6c25;
-  /* Copper - Accent */
-  --color-brand-400: #d2843b;
-  --color-brand-300: #e09f59;
+  --color-brand-600: #4f5a3a;
+  /* Deep Olive */
+  --color-brand-500: #b8c2a1;
+  /* Pale Olive */
+  --color-brand-400: #c5cdb3;
+  --color-brand-300: #d2d9c5;
 
   --font-sans: "Source Serif 4", serif;
   --font-serif: "Montserrat", sans-serif;
