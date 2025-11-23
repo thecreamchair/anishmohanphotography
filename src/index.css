@@ -24,8 +24,8 @@
   --color-brand-400: #d2843b;
   --color-brand-300: #e09f59;
 
-  --font-sans: Inter, sans-serif;
-  --font-serif: Nunito, serif;
+  --font-sans: "Source Serif 4", serif;
+  --font-serif: "Montserrat", sans-serif;
 }
 
 @layer base {
