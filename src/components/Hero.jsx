@@ -6,7 +6,7 @@ const heroImages = [
     "https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80", // Kingfisher
     "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&w=2069&q=80", // Parrot
     "https://images.unsplash.com/photo-1470114716159-e389f8712fda?auto=format&fit=crop&w=2069&q=80", // Deer
-    "https://images.unsplash.com/photo-1552728089-57bdde30ebd1?auto=format&fit=crop&w=2069&q=80"  // Sunset lake bird
+    "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=2069&q=80"  // Sunset lake bird
 ];
 
 const Hero = () => {

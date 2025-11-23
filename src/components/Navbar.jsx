@@ -16,8 +16,9 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Home', path: '#home' },
-        { name: 'Gallery', path: '#gallery' },
-        { name: 'About', path: '#about' },
+        { name: 'Profile', path: '#profile' },
+        { name: 'Portfolio', path: '#portfolio' },
+        { name: 'Blog', path: '#blog' },
         { name: 'Contact', path: '#contact' },
     ];
 
@@ -29,7 +30,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
                     <a href="#home" className="flex items-center space-x-2 group">
-                        <Camera className="h-8 w-8 text-nature-100 group-hover:text-nature-300 transition-colors" />
+                        <img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain" />
                         <span className="text-xl font-serif font-bold text-nature-50 tracking-wider">
                             ANISH<span className="text-brand-500">MOHAN</span>
                         </span>
