@@ -1,22 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-nature-950: #2c1a0e;
-  --color-nature-900: #3e2a1c;
-  --color-nature-800: #5a3825;
-  --color-nature-700: #7b4e33;
-  --color-nature-600: #9e6b44;
-  --color-nature-500: #c58c5b;
-  --color-nature-400: #e5b07a;
-  --color-nature-300: #f5d4a1;
-  --color-nature-200: #ffe5c2;
-  --color-nature-100: #fff4e0;
-  --color-nature-50: #fff9f0;
+  /* Olive Garden Feast Theme */
+  --color-nature-950: #283618;
+  /* Black Forest - Background */
+  --color-nature-900: #34461f;
+  --color-nature-800: #415626;
+  --color-nature-700: #4e662d;
+  --color-nature-600: #606c38;
+  /* Olive Leaf */
+  --color-nature-500: #8a884b;
+  --color-nature-400: #dda15e;
+  /* Light Caramel */
+  --color-nature-300: #e6bf89;
+  --color-nature-200: #f2dcb4;
+  --color-nature-100: #f9ebd5;
+  --color-nature-50: #fefae0;
+  /* Cornsilk - Text */
 
-  --color-brand-600: #d35400;
-  --color-brand-500: #e67e22;
-  --color-brand-400: #f39c12;
-  --color-brand-300: #f1c40f;
+  --color-brand-600: #a35a1f;
+  --color-brand-500: #bc6c25;
+  /* Copper - Accent */
+  --color-brand-400: #d2843b;
+  --color-brand-300: #e09f59;
 
   --font-sans: Inter, sans-serif;
   --font-serif: Nunito, serif;

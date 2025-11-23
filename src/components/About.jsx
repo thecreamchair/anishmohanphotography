@@ -12,7 +12,7 @@ const About = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1552728089-57bdde30ebd1?auto=format&fit=crop&w=800&q=80"
+                        src="src/assets/misc_images/Anish Mohan.png"
                         alt="Photographer in nature"
                         className="rounded-lg shadow-2xl"
                     />

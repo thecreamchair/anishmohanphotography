@@ -24,14 +24,14 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-nature-900/80 backdrop-blur-md py-4' : 'bg-transparent py-6'
+            className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'
                 }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
                     <a href="#home" className="flex items-center space-x-2 group">
                         <img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain" />
-                        <span className="text-xl font-serif font-bold text-nature-50 tracking-wider">
+                        <span className={`text-xl font-serif font-bold tracking-wider ${scrolled ? 'text-nature-950' : 'text-white'}`}>
                             ANISH<span className="text-brand-500">MOHAN</span>
                         </span>
                     </a>
@@ -42,7 +42,7 @@ const Navbar = () => {
                             <a
                                 key={link.name}
                                 href={link.path}
-                                className="text-sm font-medium tracking-widest text-nature-50 hover:text-brand-500 transition-colors"
+                                className={`text-sm font-medium tracking-widest hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-950' : 'text-white'}`}
                             >
                                 {link.name.toUpperCase()}
                             </a>
@@ -53,7 +53,7 @@ const Navbar = () => {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="text-nature-50 hover:text-brand-500 transition-colors"
+                            className={`hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-950' : 'text-white'}`}
                         >
                             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>
