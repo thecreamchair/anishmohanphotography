@@ -6,8 +6,8 @@ const photos = [
     { id: 1, src: 'https://images.unsplash.com/photo-1550948537-130a1ce83314?auto=format&fit=crop&w=800&q=80', category: 'Birds', title: 'Blue Jay' },
     { id: 2, src: 'https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&w=800&q=80', category: 'Birds', title: 'Parrot' },
     { id: 3, src: 'https://images.unsplash.com/photo-1470114716159-e389f8712fda?auto=format&fit=crop&w=800&q=80', category: 'Wildlife', title: 'Deer' },
-    { id: 4, src: 'https://images.unsplash.com/photo-1484406566174-9da000c23787?auto=format&fit=crop&w=800&q=80', category: 'Birds', title: 'Owl' },
-    { id: 5, src: 'https://images.unsplash.com/photo-1504006833117-8886a36a687c?auto=format&fit=crop&w=800&q=80', category: 'Wildlife', title: 'Fox' },
+    { id: 4, src: 'https://images.unsplash.com/photo-1606567595334-d39972c85dbe?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Birds', title: 'Bee Eater' },
+    { id: 5, src: 'https://images.unsplash.com/photo-1445820200644-69f87d946277?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Birds', title: 'Parrot' },
     { id: 6, src: 'https://images.unsplash.com/photo-1555169062-013468b47731?auto=format&fit=crop&w=800&q=80', category: 'Birds', title: 'Hummingbird' },
 ];
 
