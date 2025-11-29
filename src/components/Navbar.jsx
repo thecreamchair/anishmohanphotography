@@ -26,16 +26,13 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'
+            className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md py-0 shadow-sm' : 'bg-transparent py-0'
                 }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center">
-                    <a href="#home" className="flex items-center space-x-2 group">
-                        <img src={logo} alt="Logo" className="h-16 w-16 object-contain" />
-                        <span className={`text-xl font-serif font-bold tracking-wider ${scrolled ? 'text-nature-100' : 'text-white'}`}>
-                            ANISHMOHAN<span className="text-brand-500">PHOTOGRAPHY</span>
-                        </span>
+                <div className="flex flex-col items-center justify-center">
+                    <a href="#home" className="flex items-center justify-center group mb-0">
+                        <img src={logo} alt="Logo" className="h-40 w-auto object-contain" />
                     </a>
 
                     {/* Desktop Navigation */}
@@ -52,7 +49,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden">
+                    <div className="md:hidden absolute right-4 top-4">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className={`hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-100' : 'text-white'}`}
