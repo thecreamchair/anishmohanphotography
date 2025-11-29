@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-6 md:mb-0">
                         <span className="text-2xl font-serif font-bold text-nature-50 tracking-wider">
-                            ANISH<span className="text-brand-500">MOHAN</span>
+                            ANISHMOHAN<span className="text-brand-500">PHOTOGRAPHY</span>
                         </span>
                         <p className="mt-2 text-sm text-nature-400">Capturing the untamed beauty of nature.</p>
                     </div>

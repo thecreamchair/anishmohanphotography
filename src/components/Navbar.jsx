@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Camera } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import logo from '../assets/logo.png';
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -30,9 +32,9 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
                     <a href="#home" className="flex items-center space-x-2 group">
-                        <img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain" />
+                        <img src={logo} alt="Logo" className="h-16 w-16 object-contain" />
                         <span className={`text-xl font-serif font-bold tracking-wider ${scrolled ? 'text-nature-100' : 'text-white'}`}>
-                            ANISH<span className="text-brand-500">MOHAN</span>
+                            ANISHMOHAN<span className="text-brand-500">PHOTOGRAPHY</span>
                         </span>
                     </a>
 
