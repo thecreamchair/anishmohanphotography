@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Camera } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -7,6 +8,8 @@ import logo from '../assets/logo.png';
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -16,13 +19,38 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const handleNavigation = (e, path) => {
+        e.preventDefault();
+        setIsOpen(false);
+
+        if (path.startsWith('#')) {
+            if (location.pathname !== '/') {
+                navigate('/');
+                setTimeout(() => {
+                    const element = document.querySelector(path);
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            } else {
+                const element = document.querySelector(path);
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            navigate(path);
+            window.scrollTo(0, 0);
+        }
+    };
+
     const navLinks = [
         { name: 'Home', path: '#home' },
         { name: 'Profile', path: '#profile' },
-        { name: 'Portfolio', path: '#portfolio' },
-        { name: 'Blog', path: '#blog' },
+        { name: 'Portfolio', path: '/portfolio' },
+        { name: 'Blog', path: '/blog' },
         { name: 'Contact', path: '#contact' },
     ];
+
+    const isHome = location.pathname === '/';
+    const textColor = scrolled || !isHome ? 'text-nature-100' : 'text-white';
+    const buttonColor = scrolled || !isHome ? 'text-nature-100' : 'text-white';
 
     return (
         <nav
@@ -31,7 +59,7 @@ const Navbar = () => {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col items-center justify-center">
-                    <a href="#home" className="flex items-center justify-center group mb-0">
+                    <a href="/" onClick={(e) => handleNavigation(e, '#home')} className="flex items-center justify-center group mb-[-1rem] mt-[-1.5rem]">
                         <img src={logo} alt="Logo" className="h-40 w-auto object-contain" />
                     </a>
 
@@ -41,7 +69,8 @@ const Navbar = () => {
                             <a
                                 key={link.name}
                                 href={link.path}
-                                className={`text-sm font-medium tracking-widest hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-100' : 'text-white'}`}
+                                onClick={(e) => handleNavigation(e, link.path)}
+                                className={`text-sm font-medium tracking-widest hover:text-brand-500 transition-colors cursor-pointer ${textColor}`}
                             >
                                 {link.name.toUpperCase()}
                             </a>
@@ -52,7 +81,7 @@ const Navbar = () => {
                     <div className="md:hidden absolute right-4 top-4">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className={`hover:text-brand-500 transition-colors ${scrolled ? 'text-nature-100' : 'text-white'}`}
+                            className={`hover:text-brand-500 transition-colors ${buttonColor}`}
                         >
                             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>
@@ -74,8 +103,8 @@ const Navbar = () => {
                                 <a
                                     key={link.name}
                                     href={link.path}
-                                    className="text-lg font-medium tracking-widest text-nature-50 hover:text-brand-500 transition-colors"
-                                    onClick={() => setIsOpen(false)}
+                                    className="text-lg font-medium tracking-widest text-nature-50 hover:text-brand-500 transition-colors cursor-pointer"
+                                    onClick={(e) => handleNavigation(e, link.path)}
                                 >
                                     {link.name.toUpperCase()}
                                 </a>

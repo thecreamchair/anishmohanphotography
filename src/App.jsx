@@ -1,19 +1,17 @@
+import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import Hero from './components/Hero';
-import Gallery from './components/Gallery';
-import About from './components/About';
-import Contact from './components/Contact';
-import Portfolio from './components/Portfolio';
-import Blog from './components/Blog';
+import Home from './pages/Home';
+import BlogPage from './pages/BlogPage';
+import PortfolioPage from './pages/PortfolioPage';
+
 function App() {
   return (
     <Layout>
-      <Hero />
-      <Gallery />
-      <About />
-      <Portfolio />
-      <Blog />
-      <Contact />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+      </Routes>
     </Layout>
   );
 }
