@@ -8,41 +8,24 @@ export default {
     extend: {
       colors: {
         nature: {
-          900: '#1a2e1a', // Deep forest green
-          800: '#2d4a2d',
-          700: '#406640',
-          600: '#5c8a5c',
-          500: '#7aab7a',
-          400: '#9ccf9c',
-          300: '#c2e0c2',
-          200: '#d9ebd9',
-          100: '#edf7ed',
-          50: '#f7fcf7',
+          950: '#faf9f7', // Cream White - Background
+          900: '#e7e1d5',
+          800: '#d4c9b3', // Desert Beige - Secondary
+          700: '#c1b191',
+          600: '#b8c2a1',
+          500: '#8dae92', // Pale Olive - Accent
+          400: '#6e7b62',
+          300: '#4f5a3a',
+          200: '#3e472e',
+          100: '#4f5a3a', // Dark Olive - Text (Note: mapped to 300/100 in css)
+          50: '#2c2b29',  // Deep Olive - Action/Dark Accent
         },
-        earth: {
-          900: '#3e2723', // Dark brown
-          800: '#4e342e',
-          700: '#5d4037',
-          600: '#6d4c41',
-          500: '#795548',
-          400: '#8d6e63',
-          300: '#a1887f',
-          200: '#bcaaa4',
-          100: '#d7ccc8',
-          50: '#efebe9',
+        brand: {
+          600: '#4f5a3a',
+          500: '#b8c2a1', // Pale Olive
+          400: '#c5cdb3',
+          300: '#d2d9c5',
         },
-        sky: {
-          900: '#0d47a1', // Deep sky blue
-          800: '#1565c0',
-          700: '#1976d2',
-          600: '#1e88e5',
-          500: '#2196f3',
-          400: '#42a5f5',
-          300: '#64b5f6',
-          200: '#90caf9',
-          100: '#bbdefb',
-          50: '#e3f2fd',
-        }
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

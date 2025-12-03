@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const PortfolioPage = () => {
     return (
-        <div className="pt-48 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen">
+        <div className="pt-56 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen">
             <div className="max-w-7xl mx-auto">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
