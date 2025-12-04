@@ -32,7 +32,7 @@ const BlogPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-4xl md:text-5xl font-serif text-nature-50 mb-12 text-center"
                 >
-                    Journal
+                    Blog
                 </motion.h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {posts.map((post) => (
