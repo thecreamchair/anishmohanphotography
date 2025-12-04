@@ -28,11 +28,29 @@ const Navbar = () => {
                 navigate('/');
                 setTimeout(() => {
                     const element = document.querySelector(path);
-                    if (element) element.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
+                    if (element) {
+                        const navHeight = 80;
+                        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+                        window.scrollTo({
+                            top: elementPosition - navHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 300);
             } else {
-                const element = document.querySelector(path);
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
+                // Same-page navigation (Home -> Section)
+                // Wait for mobile menu to close (300ms transition)
+                setTimeout(() => {
+                    const element = document.querySelector(path);
+                    if (element) {
+                        const navHeight = 80;
+                        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+                        window.scrollTo({
+                            top: elementPosition - navHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 300);
             }
         } else {
             navigate(path);
