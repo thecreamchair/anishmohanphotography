@@ -1,0 +1,28 @@
+
+> anish_website@0.0.0 build
+> vite build && npm run postbuild
+
+vite v7.2.4 building client environment for production...
+transforming...
+✓ 2347 modules transformed.
+✗ Build failed in 2.51s
+error during build:
+src/client.js (2:7): "default" is not exported by "node_modules/@sanity/image-url/lib/index.js", imported by "src/client.js".
+file: /Users/anupmohan/anish_website/src/client.js:2:7
+
+1: import { createClient } from '@sanity/client';
+2: import imageUrlBuilder from '@sanity/image-url';
+          ^
+3: 
+4: export const client = createClient({
+
+    at getRollupError (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/parseAst.js:401:41)
+    at error (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/parseAst.js:397:42)
+    at Module.error (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/node-entry.js:16956:16)
+    at Module.traceVariable (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/node-entry.js:17412:29)
+    at ModuleScope.findVariable (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/node-entry.js:15076:39)
+    at Identifier.bind (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/node-entry.js:5423:40)
+    at CallExpression.bind (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/node-entry.js:2813:23)
+    at CallExpression.bind (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/node-entry.js:12123:15)
+    at VariableDeclarator.bind (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/node-entry.js:2813:23)
+    at VariableDeclaration.bind (file:///Users/anupmohan/anish_website/node_modules/rollup/dist/es/shared/node-entry.js:2809:28)
