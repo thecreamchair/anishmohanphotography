@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-
-const photos = [
-    { id: 1, src: 'https://images.unsplash.com/photo-1550948537-130a1ce83314?auto=format&fit=crop&w=800&q=80', category: 'Birds', title: 'Blue Jay' },
-    { id: 2, src: 'https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&w=800&q=80', category: 'Birds', title: 'Parrot' },
-    { id: 3, src: 'https://images.unsplash.com/photo-1470114716159-e389f8712fda?auto=format&fit=crop&w=800&q=80', category: 'Wildlife', title: 'Deer' },
-    { id: 4, src: 'https://images.unsplash.com/photo-1606567595334-d39972c85dbe?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Birds', title: 'Bee Eater' },
-    { id: 5, src: 'https://images.unsplash.com/photo-1445820200644-69f87d946277?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Birds', title: 'Parrot' },
-    { id: 6, src: 'https://images.unsplash.com/photo-1555169062-013468b47731?auto=format&fit=crop&w=800&q=80', category: 'Birds', title: 'Hummingbird' },
-];
+import { client, urlFor } from '../client';
 
 const Gallery = () => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const [photos, setPhotos] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const query = '*[_type == "selectedWork"][0]';
+        client.fetch(query)
+            .then((data) => {
+                if (data && data.images) {
+                    setPhotos(data.images);
+                }
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error(err);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) return null; // Or a loading spinner
+    if (photos.length < 6) return null; // Don't render if not enough photos
 
     return (
         <div id="gallery" className="py-40 px-6 sm:px-6 lg:px-20 bg-nature-950 min-h-screen">
@@ -29,19 +41,19 @@ const Gallery = () => {
                 <div className="grid grid-cols-4 gap-4 auto-rows-[200px] max-w-4xl mx-auto">
                     {/* Top of A */}
                     <motion.div
-                        key={photos[4].id}
+                        key={photos[4]._key}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         className="col-start-2 col-span-2 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg"
                         onClick={() => setSelectedImage(photos[4])}
                     >
-                        <img src={photos[4].src} alt={photos[4].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img src={urlFor(photos[4]).width(800).url()} alt={photos[4].alt || photos[4].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </motion.div>
 
                     {/* Middle Left */}
                     <motion.div
-                        key={photos[1].id}
+                        key={photos[1]._key}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -49,12 +61,12 @@ const Gallery = () => {
                         className="col-start-1 col-span-2 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg mt-4"
                         onClick={() => setSelectedImage(photos[1])}
                     >
-                        <img src={photos[1].src} alt={photos[1].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img src={urlFor(photos[1]).width(800).url()} alt={photos[1].alt || photos[1].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </motion.div>
 
                     {/* Middle Right */}
                     <motion.div
-                        key={photos[2].id}
+                        key={photos[2]._key}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -62,12 +74,12 @@ const Gallery = () => {
                         className="col-start-3 col-span-2 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg mt-4"
                         onClick={() => setSelectedImage(photos[2])}
                     >
-                        <img src={photos[2].src} alt={photos[2].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img src={urlFor(photos[2]).width(800).url()} alt={photos[2].alt || photos[2].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </motion.div>
 
                     {/* Bottom Left Leg */}
                     <motion.div
-                        key={photos[3].id}
+                        key={photos[3]._key}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -75,12 +87,12 @@ const Gallery = () => {
                         className="col-start-1 col-span-1 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg"
                         onClick={() => setSelectedImage(photos[3])}
                     >
-                        <img src={photos[3].src} alt={photos[3].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img src={urlFor(photos[3]).width(800).url()} alt={photos[3].alt || photos[3].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </motion.div>
 
                     {/* Bridge (Middle) */}
                     <motion.div
-                        key={photos[0].id}
+                        key={photos[0]._key}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -88,12 +100,12 @@ const Gallery = () => {
                         className="col-start-2 col-span-2 row-span-1 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg"
                         onClick={() => setSelectedImage(photos[0])}
                     >
-                        <img src={photos[0].src} alt={photos[0].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img src={urlFor(photos[0]).width(800).url()} alt={photos[0].alt || photos[0].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </motion.div>
 
                     {/* Bottom Right Leg */}
                     <motion.div
-                        key={photos[5].id}
+                        key={photos[5]._key}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -101,7 +113,7 @@ const Gallery = () => {
                         className="col-start-4 col-span-1 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg"
                         onClick={() => setSelectedImage(photos[5])}
                     >
-                        <img src={photos[5].src} alt={photos[5].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img src={urlFor(photos[5]).width(800).url()} alt={photos[5].alt || photos[5].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </motion.div>
                 </div>
             </div>
@@ -125,8 +137,8 @@ const Gallery = () => {
                             initial={{ scale: 0.9 }}
                             animate={{ scale: 1 }}
                             exit={{ scale: 0.9 }}
-                            src={selectedImage.src}
-                            alt={selectedImage.title}
+                            src={urlFor(selectedImage).width(1200).url()}
+                            alt={selectedImage.alt || selectedImage.title}
                             className="max-h-[90vh] max-w-full rounded-lg shadow-2xl"
                             onClick={(e) => e.stopPropagation()}
                         />

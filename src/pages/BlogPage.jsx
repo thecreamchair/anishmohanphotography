@@ -8,7 +8,7 @@ const BlogPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const query = '*[_type == "post"] | order(publishedAt desc)';
+        const query = '*[_type == "blogPost"] | order(publishedAt desc)';
         client.fetch(query)
             .then((data) => {
                 setPosts(data);
@@ -42,20 +42,20 @@ const BlogPage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                         >
-                            {post.mainImage && (
+                            {post.coverImage && (
                                 <img
-                                    src={urlFor(post.mainImage).width(400).url()}
+                                    src={urlFor(post.coverImage).width(400).url()}
                                     alt={post.title}
                                     className="w-full h-48 object-cover rounded-md mb-4"
                                 />
                             )}
                             <h2 className="text-xl font-serif text-nature-50 mb-2">{post.title}</h2>
                             <p className="text-nature-400 text-sm mb-4">
-                                {new Date(post.publishedAt).toLocaleDateString()}
+                                {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : 'Unpublished'}
                             </p>
                             <div className="text-nature-200 line-clamp-3">
                                 {/* Simple body preview - assumes block content or string */}
-                                {post.body && post.body[0]?.children[0]?.text}
+                                {post.content && post.content[0]?.children[0]?.text}
                             </div>
                         </motion.div>
                     ))}
