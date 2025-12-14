@@ -14,35 +14,16 @@ export default defineType({
         }),
         defineField({
             name: 'images',
-            title: 'Images',
+            title: 'Selected Portfolio Items',
             type: 'array',
-            description: 'Upload exactly 6 images for the home page gallery layout.',
+            description: 'Select exactly 6 items from your Portfolio to display on the home page.',
             of: [
                 {
-                    type: 'image',
-                    options: {
-                        hotspot: true,
-                    },
-                    fields: [
-                        {
-                            name: 'title',
-                            type: 'string',
-                            title: 'Title',
-                        },
-                        {
-                            name: 'category',
-                            type: 'string',
-                            title: 'Category',
-                        },
-                        {
-                            name: 'alt',
-                            type: 'string',
-                            title: 'Alternative Text',
-                        }
-                    ]
+                    type: 'reference',
+                    to: [{ type: 'portfolio' }]
                 }
             ],
-            validation: Rule => Rule.required().min(6).max(6).error('You must upload exactly 6 images for the gallery layout.'),
+            validation: Rule => Rule.required().min(6).max(6).error('The homepage gallery requires exactly 6 items. Please remove or add items until you have 6.'),
         }),
     ],
 })

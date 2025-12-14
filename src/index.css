@@ -26,8 +26,8 @@
   --color-brand-400: #c5cdb3;
   --color-brand-300: #d2d9c5;
 
-  --font-sans: "Source Serif 4", serif;
-  --font-serif: "Montserrat", sans-serif;
+  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Source Serif 4", serif;
 }
 
 @layer base {

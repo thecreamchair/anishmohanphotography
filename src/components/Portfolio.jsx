@@ -11,7 +11,7 @@ const Portfolio = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="text-4xl font-serif font-bold text-nature-50 mb-6"
+                    className="text-4xl font-serif text-nature-50 mb-6"
                 >
                     Portfolio
                 </motion.h2>

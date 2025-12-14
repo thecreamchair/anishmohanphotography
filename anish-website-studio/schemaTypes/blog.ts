@@ -39,32 +39,7 @@ export default defineType({
             validation: (Rule) => Rule.required(),
         }),
 
-        // ---------- OPTIONAL (Bird Photography Specific) ----------
-        defineField({
-            name: 'birdSpecies',
-            title: 'Bird Species',
-            type: 'string',
-        }),
-
-        defineField({
-            name: 'location',
-            title: 'Location',
-            type: 'string',
-        }),
-
-        defineField({
-            name: 'cameraSettings',
-            title: 'Camera Settings',
-            type: 'object',
-            fields: [
-                { name: 'camera', title: 'Camera', type: 'string' },
-                { name: 'lens', title: 'Lens', type: 'string' },
-                { name: 'focalLength', title: 'Focal Length', type: 'string' },
-                { name: 'aperture', title: 'Aperture', type: 'string' },
-                { name: 'shutterSpeed', title: 'Shutter Speed', type: 'string' },
-                { name: 'iso', title: 'ISO', type: 'string' },
-            ],
-        }),
+        // ---------- OPTIONAL ----------
 
         defineField({
             name: 'gallery',
@@ -77,6 +52,7 @@ export default defineType({
             name: 'publishedAt',
             title: 'Published At',
             type: 'datetime',
+            initialValue: () => new Date().toISOString(),
         }),
 
         defineField({
@@ -91,7 +67,6 @@ export default defineType({
         select: {
             title: 'title',
             media: 'coverImage',
-            subtitle: 'birdSpecies',
         },
     },
 })

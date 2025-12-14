@@ -24,7 +24,7 @@ const About = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    <h2 className="text-4xl font-serif font-bold text-nature-50 mb-6">Behind the Lens</h2>
+                    <h2 className="text-4xl font-serif text-nature-50 mb-6">Behind the Lens</h2>
                     <p className="text-lg text-nature-300 mb-6 leading-relaxed">
                         Hello, I'm Anish. My journey into wildlife photography began with a simple curiosity about the birds in my backyard.
                         That curiosity quickly blossomed into a passionate pursuit of capturing the untold stories of the natural world.

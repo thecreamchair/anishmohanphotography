@@ -9,7 +9,8 @@ const Gallery = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const query = '*[_type == "selectedWork"][0]';
+        // Expand the references to get the actual portfolio items
+        const query = '*[_type == "selectedWork"][0]{..., images[]->}';
         client.fetch(query)
             .then((data) => {
                 if (data && data.images) {
@@ -23,98 +24,46 @@ const Gallery = () => {
             });
     }, []);
 
-    if (loading) return null; // Or a loading spinner
-    if (photos.length < 6) return null; // Don't render if not enough photos
+    if (loading) return null;
+    if (!photos || photos.length === 0) return null;
 
     return (
-        <div id="gallery" className="py-40 px-6 sm:px-6 lg:px-20 bg-nature-950 min-h-screen">
-            <div className="max-w-7xl mx-auto">
+        <div id="gallery" className="py-20 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen flex flex-col justify-center">
+            <div className="max-w-7xl mx-auto w-full">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl font-serif font-bold text-nature-50 mb-4">Selected Works</h2>
+                    <h2 className="text-4xl font-serif text-nature-50 mb-4">Selected Works</h2>
                     <p className="text-nature-400 max-w-2xl mx-auto">A collection of moments from the wild.</p>
                 </motion.div>
 
-                <div className="grid grid-cols-4 gap-4 auto-rows-[200px] max-w-4xl mx-auto">
-                    {/* Top of A */}
-                    <motion.div
-                        key={photos[4]._key}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="col-start-2 col-span-2 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg"
-                        onClick={() => setSelectedImage(photos[4])}
-                    >
-                        <img src={urlFor(photos[4]).width(800).url()} alt={photos[4].alt || photos[4].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    </motion.div>
-
-                    {/* Middle Left */}
-                    <motion.div
-                        key={photos[1]._key}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="col-start-1 col-span-2 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg mt-4"
-                        onClick={() => setSelectedImage(photos[1])}
-                    >
-                        <img src={urlFor(photos[1]).width(800).url()} alt={photos[1].alt || photos[1].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    </motion.div>
-
-                    {/* Middle Right */}
-                    <motion.div
-                        key={photos[2]._key}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="col-start-3 col-span-2 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg mt-4"
-                        onClick={() => setSelectedImage(photos[2])}
-                    >
-                        <img src={urlFor(photos[2]).width(800).url()} alt={photos[2].alt || photos[2].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    </motion.div>
-
-                    {/* Bottom Left Leg */}
-                    <motion.div
-                        key={photos[3]._key}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3 }}
-                        className="col-start-1 col-span-1 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg"
-                        onClick={() => setSelectedImage(photos[3])}
-                    >
-                        <img src={urlFor(photos[3]).width(800).url()} alt={photos[3].alt || photos[3].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    </motion.div>
-
-                    {/* Bridge (Middle) */}
-                    <motion.div
-                        key={photos[0]._key}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.4 }}
-                        className="col-start-2 col-span-2 row-span-1 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg"
-                        onClick={() => setSelectedImage(photos[0])}
-                    >
-                        <img src={urlFor(photos[0]).width(800).url()} alt={photos[0].alt || photos[0].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    </motion.div>
-
-                    {/* Bottom Right Leg */}
-                    <motion.div
-                        key={photos[5]._key}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 }}
-                        className="col-start-4 col-span-1 row-span-2 relative group overflow-hidden rounded-lg cursor-pointer shadow-lg"
-                        onClick={() => setSelectedImage(photos[5])}
-                    >
-                        <img src={urlFor(photos[5]).width(800).url()} alt={photos[5].alt || photos[5].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    </motion.div>
+                {/* Simple 3-Column Grid Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {photos.map((photo, index) => (
+                        <motion.div
+                            key={photo._id || index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                            className="relative group overflow-hidden rounded-lg cursor-pointer shadow-lg aspect-[4/3]"
+                            onClick={() => setSelectedImage(photo)}
+                        >
+                            {photo.image && (
+                                <img
+                                    src={urlFor(photo.image).width(800).height(600).url()}
+                                    alt={photo.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                            )}
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <h3 className="text-white text-xl font-serif">{photo.title}</h3>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
 
@@ -124,7 +73,7 @@ const Gallery = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
                         onClick={() => setSelectedImage(null)}
                     >
                         <button
@@ -133,15 +82,24 @@ const Gallery = () => {
                         >
                             <X className="h-8 w-8" />
                         </button>
-                        <motion.img
-                            initial={{ scale: 0.9 }}
-                            animate={{ scale: 1 }}
-                            exit={{ scale: 0.9 }}
-                            src={urlFor(selectedImage).width(1200).url()}
-                            alt={selectedImage.alt || selectedImage.title}
-                            className="max-h-[90vh] max-w-full rounded-lg shadow-2xl"
+                        <motion.div
+                            className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center"
                             onClick={(e) => e.stopPropagation()}
-                        />
+                        >
+                            {selectedImage.image && (
+                                <img
+                                    src={urlFor(selectedImage.image).width(1200).url()}
+                                    alt={selectedImage.title}
+                                    className="max-h-[80vh] max-w-full rounded-lg shadow-2xl object-contain"
+                                />
+                            )}
+                            <div className="mt-4 text-center">
+                                <h2 className="text-white text-2xl font-serif mb-2">{selectedImage.title}</h2>
+                                {selectedImage.caption && (
+                                    <p className="text-nature-200 max-w-2xl mx-auto">{selectedImage.caption}</p>
+                                )}
+                            </div>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

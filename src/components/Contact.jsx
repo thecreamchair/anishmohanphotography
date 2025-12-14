@@ -11,7 +11,7 @@ const Contact = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl font-serif font-bold text-nature-50 mb-4">Get in Touch</h2>
+                    <h2 className="text-4xl font-serif text-nature-50 mb-4">Get in Touch</h2>
                     <p className="text-nature-400">Interested in prints or collaborations? I'd love to hear from you.</p>
                 </motion.div>
 
