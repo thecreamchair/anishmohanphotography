@@ -86,7 +86,7 @@ const Navbar = () => {
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
-                                href={link.path}
+                                href={`${import.meta.env.BASE_URL}${link.path.startsWith('/') ? link.path.slice(1) : link.path}`}
                                 onClick={(e) => handleNavigation(e, link.path)}
                                 className={`text-sm font-medium tracking-widest hover:text-brand-500 transition-colors cursor-pointer ${textColor}`}
                             >
@@ -120,7 +120,7 @@ const Navbar = () => {
                             {navLinks.map((link) => (
                                 <a
                                     key={link.name}
-                                    href={link.path}
+                                    href={`${import.meta.env.BASE_URL}${link.path.startsWith('/') ? link.path.slice(1) : link.path}`}
                                     className="text-lg font-medium tracking-widest text-nature-50 hover:text-brand-500 transition-colors cursor-pointer"
                                     onClick={(e) => handleNavigation(e, link.path)}
                                 >

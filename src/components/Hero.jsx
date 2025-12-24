@@ -1,25 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { client, urlFor } from '../client';
 
-const heroImages = [
+// Fallback images in case Sanity has no data
+const fallbackImages = [
     "https://images.unsplash.com/photo-1530728327726-b504480e42ec?q=100&w=5589&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1503431128871-cd250803fa41?q=100&w=5184&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Parrot
+    "https://images.unsplash.com/photo-1503431128871-cd250803fa41?q=100&w=5184&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1731650211720-54d314975a7b?q=100&w=5000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-4.0.3&auto=format&fit=crop&w=5000&q=80" // Kingfisher
-    // Parrot
+    "https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-4.0.3&auto=format&fit=crop&w=5000&q=80"
 ];
 
 const Hero = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [heroImages, setHeroImages] = useState(fallbackImages);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Fetch hero images from Sanity
+        const query = '*[_type == "homePage"][0]{heroImages}';
+        client.fetch(query)
+            .then((data) => {
+                if (data?.heroImages?.length > 0) {
+                    // Transform Sanity image objects to URLs
+                    const imageUrls = data.heroImages.map(img => urlFor(img).width(1920).quality(80).url());
+                    setHeroImages(imageUrls);
+                }
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error("Failed to fetch hero images:", err);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        if (heroImages.length <= 1) return; // No slideshow if 0 or 1 image
+
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-        }, 5000); // Change image every 5 seconds
+        }, 5000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [heroImages]);
 
     return (
         <div id="home" className="relative h-screen w-full overflow-hidden bg-nature-950">

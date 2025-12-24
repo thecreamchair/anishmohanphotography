@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import aboutImage from '../assets/misc_images/Anish Mohan.png';
+import aboutImage from '../assets/misc_images/Anish Mohan.JPG';
 
 const About = () => {
     return (
