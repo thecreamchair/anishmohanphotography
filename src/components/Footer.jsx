@@ -14,14 +14,14 @@ const Footer = () => {
                     </div>
 
                     <div className="flex space-x-6">
-                        <a href="#" className="hover:text-nature-50 transition-colors">
+                        <a
+                            href="https://instagram.com/shotbyanishmohan"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-2 hover:text-nature-50 transition-colors"
+                        >
                             <Instagram className="h-6 w-6" />
-                        </a>
-                        <a href="#" className="hover:text-nature-50 transition-colors">
-                            <Twitter className="h-6 w-6" />
-                        </a>
-                        <a href="#" className="hover:text-nature-50 transition-colors">
-                            <Mail className="h-6 w-6" />
+                            <span className="font-medium">@shotbyanishmohan</span>
                         </a>
                     </div>
                 </div>
