@@ -13,7 +13,7 @@ const fallbackImages = [
 
 const Hero = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [heroImages, setHeroImages] = useState(fallbackImages);
+    const [heroImages, setHeroImages] = useState(fallbackImages.map(url => ({ desktop: url, mobile: url })));
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -22,9 +22,14 @@ const Hero = () => {
         client.fetch(query)
             .then((data) => {
                 if (data?.heroImages?.length > 0) {
-                    // Transform Sanity image objects to URLs
-                    const imageUrls = data.heroImages.map(img => urlFor(img).width(1920).quality(80).url());
-                    setHeroImages(imageUrls);
+                    // Transform Sanity image objects to responsive URLs
+                    const responsiveImages = data.heroImages.map(img => ({
+                        // Desktop: Wide, high quality
+                        desktop: urlFor(img).width(2560).quality(90).auto('format').url(),
+                        // Mobile: Vertical crop, respecting hotspot
+                        mobile: urlFor(img).width(720).height(1080).fit('crop').quality(85).auto('format').url()
+                    }));
+                    setHeroImages(responsiveImages);
                 }
                 setLoading(false);
             })
@@ -44,6 +49,8 @@ const Hero = () => {
         return () => clearInterval(interval);
     }, [heroImages]);
 
+    const currentImage = heroImages[currentImageIndex];
+
     return (
         <div id="home" className="relative h-screen w-full overflow-hidden bg-nature-950">
             {/* Background Image Slideshow */}
@@ -54,12 +61,18 @@ const Hero = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1.5 }}
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{
-                        backgroundImage: `url("${heroImages[currentImageIndex]}")`,
-                        filter: 'brightness(1.1)'
-                    }}
-                />
+                    className="absolute inset-0"
+                >
+                    <picture className="absolute inset-0 w-full h-full">
+                        <source media="(max-width: 768px)" srcSet={currentImage.mobile} />
+                        <img
+                            src={currentImage.desktop}
+                            alt="Hero Background"
+                            className="w-full h-full object-cover"
+                            style={{ filter: 'brightness(1.1)' }}
+                        />
+                    </picture>
+                </motion.div>
             </AnimatePresence>
 
             {/* Overlay */}
