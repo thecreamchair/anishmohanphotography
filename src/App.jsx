@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import BlogPage from './pages/BlogPage';
 import PortfolioPage from './pages/PortfolioPage';
 import ProjectsPage from './pages/ProjectsPage';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
   );
