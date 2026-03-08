@@ -19,6 +19,17 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const scrollToSection = (selector) => {
+        // Wait 300ms for mobile menu close / route transition to settle
+        setTimeout(() => {
+            const element = document.querySelector(selector);
+            if (element) {
+                const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+                window.scrollTo({ top: elementPosition - 80, behavior: 'smooth' });
+            }
+        }, 300);
+    };
+
     const handleNavigation = (e, path) => {
         e.preventDefault();
         setIsOpen(false);
@@ -26,32 +37,8 @@ const Navbar = () => {
         if (path.startsWith('#')) {
             if (location.pathname !== '/') {
                 navigate('/');
-                setTimeout(() => {
-                    const element = document.querySelector(path);
-                    if (element) {
-                        const navHeight = 80;
-                        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-                        window.scrollTo({
-                            top: elementPosition - navHeight,
-                            behavior: 'smooth'
-                        });
-                    }
-                }, 300);
-            } else {
-                // Same-page navigation (Home -> Section)
-                // Wait for mobile menu to close (300ms transition)
-                setTimeout(() => {
-                    const element = document.querySelector(path);
-                    if (element) {
-                        const navHeight = 80;
-                        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-                        window.scrollTo({
-                            top: elementPosition - navHeight,
-                            behavior: 'smooth'
-                        });
-                    }
-                }, 300);
             }
+            scrollToSection(path);
         } else {
             navigate(path);
             window.scrollTo(0, 0);
