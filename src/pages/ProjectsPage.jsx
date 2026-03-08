@@ -8,8 +8,11 @@ const ProjectsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedProject, setSelectedProject] = useState(null);
+    const [retryKey, setRetryKey] = useState(0);
 
     useEffect(() => {
+        setLoading(true);
+        setError(null);
         const query = '*[_type == "project"] | order(date desc)';
         client.fetch(query)
             .then((data) => {
@@ -21,10 +24,39 @@ const ProjectsPage = () => {
                 setError(err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [retryKey]);
 
-    if (loading) return <div className="pt-56 px-4 text-center text-nature-50">Loading...</div>;
-    if (error) return <div className="pt-56 px-4 text-center text-red-600">Error: {error}. Please check your Sanity CORS settings.</div>;
+    if (loading) return (
+        <div className="pt-56 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen pb-20">
+            <div className="max-w-7xl mx-auto">
+                <div className="h-12 w-40 bg-nature-800 rounded animate-pulse mx-auto mb-12" />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                        <div key={i} className="bg-nature-900/50 rounded-lg overflow-hidden">
+                            <div className="h-64 bg-nature-800 animate-pulse" />
+                            <div className="p-6 space-y-3">
+                                <div className="h-6 bg-nature-800 rounded animate-pulse w-3/4" />
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-full" />
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-5/6" />
+                                <div className="h-3 bg-nature-800 rounded animate-pulse w-1/3 mt-4" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+    if (error) return (
+        <div className="pt-56 px-4 text-center bg-nature-950 min-h-screen">
+            <p className="text-red-400 mb-4">Failed to load projects. Please check your connection.</p>
+            <button
+                onClick={() => setRetryKey(k => k + 1)}
+                className="px-6 py-2 border border-nature-50 text-nature-50 hover:bg-nature-50 hover:text-nature-950 transition-colors rounded-full"
+            >
+                Try Again
+            </button>
+        </div>
+    );
 
     return (
         <div className="pt-56 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen pb-20">

@@ -3,18 +3,34 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { client, urlFor } from '../client';
 import { X } from 'lucide-react';
 
+const PAGE_SIZE = 12;
+
 const PortfolioPage = () => {
     const [projects, setProjects] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [loadedCount, setLoadedCount] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
     const [error, setError] = useState(null);
     const [selectedProject, setSelectedProject] = useState(null);
+    const [retryKey, setRetryKey] = useState(0);
+
+    const fetchProjects = (start, end) => {
+        const query = `{
+            "items": *[_type == "portfolio"] | order(_createdAt desc) [${start}...${end}],
+            "total": count(*[_type == "portfolio"])
+        }`;
+        return client.fetch(query);
+    };
 
     useEffect(() => {
-        // Fetching 'portfolio' type.
-        const query = '*[_type == "portfolio"] | order(_createdAt desc)';
-        client.fetch(query)
+        setLoading(true);
+        setError(null);
+        fetchProjects(0, PAGE_SIZE)
             .then((data) => {
-                setProjects(data);
+                setProjects(data.items);
+                setTotal(data.total);
+                setLoadedCount(data.items.length);
                 setLoading(false);
             })
             .catch((err) => {
@@ -22,10 +38,48 @@ const PortfolioPage = () => {
                 setError(err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [retryKey]);
 
-    if (loading) return <div className="pt-56 px-4 text-center text-nature-50">Loading...</div>;
-    if (error) return <div className="pt-56 px-4 text-center text-red-600">Error: {error}. Please check your Sanity CORS settings.</div>;
+    const handleLoadMore = () => {
+        setLoadingMore(true);
+        fetchProjects(loadedCount, loadedCount + PAGE_SIZE)
+            .then((data) => {
+                setProjects((prev) => [...prev, ...data.items]);
+                setLoadedCount((prev) => prev + data.items.length);
+                setLoadingMore(false);
+            })
+            .catch((err) => {
+                console.error(err);
+                setLoadingMore(false);
+            });
+    };
+
+    if (loading) return (
+        <div className="pt-56 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen pb-20">
+            <div className="max-w-7xl mx-auto">
+                <div className="h-12 w-48 bg-nature-800 rounded animate-pulse mx-auto mb-12" />
+                <div className="flex flex-wrap justify-center gap-8">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                        <div key={i} className="w-full sm:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] max-w-md rounded-lg overflow-hidden">
+                            <div className="h-64 bg-nature-800 animate-pulse" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+
+    if (error) return (
+        <div className="pt-56 px-4 text-center bg-nature-950 min-h-screen">
+            <p className="text-red-400 mb-4">Failed to load portfolio. Please check your connection.</p>
+            <button
+                onClick={() => setRetryKey(k => k + 1)}
+                className="px-6 py-2 border border-nature-50 text-nature-50 hover:bg-nature-50 hover:text-nature-950 transition-colors rounded-full"
+            >
+                Try Again
+            </button>
+        </div>
+    );
 
     return (
         <div className="pt-56 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen pb-20">
@@ -63,6 +117,18 @@ const PortfolioPage = () => {
                         </motion.div>
                     ))}
                 </div>
+
+                {loadedCount < total && (
+                    <div className="pt-16 text-center">
+                        <button
+                            onClick={handleLoadMore}
+                            disabled={loadingMore}
+                            className="px-8 py-3 border border-nature-50 text-nature-50 hover:bg-nature-50 hover:text-nature-950 transition-colors duration-300 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {loadingMore ? 'Loading...' : `Load More (${total - loadedCount} remaining)`}
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* Lightbox Modal */}

@@ -12,6 +12,7 @@ const BlogPage = () => {
     const [loading, setLoading] = useState(true);
     const [loadingMore, setLoadingMore] = useState(false);
     const [error, setError] = useState(null);
+    const [retryKey, setRetryKey] = useState(0);
 
     const fetchPosts = (start, end) => {
         const query = `{
@@ -23,6 +24,9 @@ const BlogPage = () => {
     };
 
     useEffect(() => {
+        setLoading(true);
+        setError(null);
+        setPosts([]);
         fetchPosts(0, POSTS_PER_PAGE)
             .then((data) => {
                 setPosts(data.posts);
@@ -35,7 +39,7 @@ const BlogPage = () => {
                 setError(err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [retryKey]);
 
     const handleLoadMore = () => {
         setLoadingMore(true);
@@ -78,8 +82,40 @@ const BlogPage = () => {
         },
     };
 
-    if (loading) return <div className="pt-56 px-4 text-center text-nature-50">Loading...</div>;
-    if (error) return <div className="pt-56 px-4 text-center text-red-600">Error: {error}</div>;
+    if (loading) return (
+        <div className="pt-40 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen">
+            <div className="max-w-4xl mx-auto">
+                <div className="h-12 w-32 bg-nature-800 rounded animate-pulse mx-auto mb-20" />
+                <div className="space-y-32">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                        <div key={i} className="border-b border-nature-800 pb-20">
+                            <div className="flex flex-col items-center space-y-4 mb-8">
+                                <div className="h-8 bg-nature-800 rounded animate-pulse w-3/4" />
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-32" />
+                            </div>
+                            <div className="h-80 bg-nature-800 rounded-lg animate-pulse mb-12" />
+                            <div className="space-y-3">
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-full" />
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-full" />
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-4/5" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+    if (error) return (
+        <div className="pt-56 px-4 text-center bg-nature-950 min-h-screen">
+            <p className="text-red-400 mb-4">Failed to load posts. Please check your connection.</p>
+            <button
+                onClick={() => setRetryKey(k => k + 1)}
+                className="px-6 py-2 border border-nature-50 text-nature-50 hover:bg-nature-50 hover:text-nature-950 transition-colors rounded-full"
+            >
+                Try Again
+            </button>
+        </div>
+    );
 
     return (
         <div className="pt-40 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen">
