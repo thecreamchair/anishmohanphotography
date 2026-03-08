@@ -3,18 +3,31 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { client, urlFor } from '../client';
 import { X } from 'lucide-react';
 
+const PAGE_SIZE = 12;
+
 const PortfolioPage = () => {
     const [projects, setProjects] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [loadedCount, setLoadedCount] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
     const [error, setError] = useState(null);
     const [selectedProject, setSelectedProject] = useState(null);
 
+    const fetchProjects = (start, end) => {
+        const query = `{
+            "items": *[_type == "portfolio"] | order(_createdAt desc) [${start}...${end}],
+            "total": count(*[_type == "portfolio"])
+        }`;
+        return client.fetch(query);
+    };
+
     useEffect(() => {
-        // Fetching 'portfolio' type.
-        const query = '*[_type == "portfolio"] | order(_createdAt desc)';
-        client.fetch(query)
+        fetchProjects(0, PAGE_SIZE)
             .then((data) => {
-                setProjects(data);
+                setProjects(data.items);
+                setTotal(data.total);
+                setLoadedCount(data.items.length);
                 setLoading(false);
             })
             .catch((err) => {
@@ -23,6 +36,20 @@ const PortfolioPage = () => {
                 setLoading(false);
             });
     }, []);
+
+    const handleLoadMore = () => {
+        setLoadingMore(true);
+        fetchProjects(loadedCount, loadedCount + PAGE_SIZE)
+            .then((data) => {
+                setProjects((prev) => [...prev, ...data.items]);
+                setLoadedCount((prev) => prev + data.items.length);
+                setLoadingMore(false);
+            })
+            .catch((err) => {
+                console.error(err);
+                setLoadingMore(false);
+            });
+    };
 
     if (loading) return (
         <div className="pt-56 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen pb-20">
@@ -38,6 +65,7 @@ const PortfolioPage = () => {
             </div>
         </div>
     );
+
     if (error) return <div className="pt-56 px-4 text-center text-red-600">Error: {error}. Please check your Sanity CORS settings.</div>;
 
     return (
@@ -76,6 +104,18 @@ const PortfolioPage = () => {
                         </motion.div>
                     ))}
                 </div>
+
+                {loadedCount < total && (
+                    <div className="pt-16 text-center">
+                        <button
+                            onClick={handleLoadMore}
+                            disabled={loadingMore}
+                            className="px-8 py-3 border border-nature-50 text-nature-50 hover:bg-nature-50 hover:text-nature-950 transition-colors duration-300 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {loadingMore ? 'Loading...' : `Load More (${total - loadedCount} remaining)`}
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* Lightbox Modal */}
