@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Twitter, Mail } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 
 const Footer = () => {
     return (
