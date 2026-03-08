@@ -12,6 +12,7 @@ const BlogPage = () => {
     const [loading, setLoading] = useState(true);
     const [loadingMore, setLoadingMore] = useState(false);
     const [error, setError] = useState(null);
+    const [retryKey, setRetryKey] = useState(0);
 
     const fetchPosts = (start, end) => {
         const query = `{
@@ -23,6 +24,9 @@ const BlogPage = () => {
     };
 
     useEffect(() => {
+        setLoading(true);
+        setError(null);
+        setPosts([]);
         fetchPosts(0, POSTS_PER_PAGE)
             .then((data) => {
                 setPosts(data.posts);
@@ -35,7 +39,7 @@ const BlogPage = () => {
                 setError(err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [retryKey]);
 
     const handleLoadMore = () => {
         setLoadingMore(true);
@@ -101,7 +105,17 @@ const BlogPage = () => {
             </div>
         </div>
     );
-    if (error) return <div className="pt-56 px-4 text-center text-red-600">Error: {error}</div>;
+    if (error) return (
+        <div className="pt-56 px-4 text-center bg-nature-950 min-h-screen">
+            <p className="text-red-400 mb-4">Failed to load posts. Please check your connection.</p>
+            <button
+                onClick={() => setRetryKey(k => k + 1)}
+                className="px-6 py-2 border border-nature-50 text-nature-50 hover:bg-nature-50 hover:text-nature-950 transition-colors rounded-full"
+            >
+                Try Again
+            </button>
+        </div>
+    );
 
     return (
         <div className="pt-40 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen">
