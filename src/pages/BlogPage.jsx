@@ -78,7 +78,29 @@ const BlogPage = () => {
         },
     };
 
-    if (loading) return <div className="pt-56 px-4 text-center text-nature-50">Loading...</div>;
+    if (loading) return (
+        <div className="pt-40 px-4 sm:px-6 lg:px-8 bg-nature-950 min-h-screen">
+            <div className="max-w-4xl mx-auto">
+                <div className="h-12 w-32 bg-nature-800 rounded animate-pulse mx-auto mb-20" />
+                <div className="space-y-32">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                        <div key={i} className="border-b border-nature-800 pb-20">
+                            <div className="flex flex-col items-center space-y-4 mb-8">
+                                <div className="h-8 bg-nature-800 rounded animate-pulse w-3/4" />
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-32" />
+                            </div>
+                            <div className="h-80 bg-nature-800 rounded-lg animate-pulse mb-12" />
+                            <div className="space-y-3">
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-full" />
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-full" />
+                                <div className="h-4 bg-nature-800 rounded animate-pulse w-4/5" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
     if (error) return <div className="pt-56 px-4 text-center text-red-600">Error: {error}</div>;
 
     return (
